@@ -11,22 +11,79 @@
 		.video {
 			position: absolute;
 			top: 0;
-			width: 50%;
-			height: 50%;
+			width: calc(50% - 1px);
+			height: calc(50% - 1px);
 		}
 
 		.chat {
 			position: absolute;
 			top: 0;
-			left: 50%;
-			width: 50%;
+			left: calc(50% + 1px);
+			width: calc(50% - 1px);
 			height: 99%;
+		}
+
+		.song {
+			position: absolute;
+			top: calc(50% + 1px);
+			width: calc(50% - 1px);
+			height: calc(50% - 1px);
+		}
+
+		.input {
+			width: calc(100% - 12px);
+			height: 20px;
+
+			padding-left: 10px;
+
+			border: grey solid 1px
+		}
+
+		.playback {
+			width: 100%;
+			height: calc(100% - 10px);
 		}
 	</style>
 </head>
 <body>
-	<iframe class="video" width="560" height="315" src="https://www.youtube.com/embed/78ZthTGcdPw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	<iframe class="video" src="https://www.youtube.com/embed/78ZthTGcdPw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
 
 	<iframe class="chat" src="https://www.youtube.com/live_chat?v=78ZthTGcdPw&embed_domain=joogps.github.io"></iframe>
+
+	<div class="song">
+		<input class="input" placeholder="Playlist link goes here"></input>
+		<iframe class="playback" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
+	</div>
 </body>
+
+<script>
+	document.getElementsByClassName("input")[0].addEventListener("keyup", function(e) {
+		let url = this.value;
+		let playback = document.getElementsByClassName("playback")[0];
+		if (e.keyCode == 13) {
+			if(youtube_video(url) && youtube_playlist(url)) {
+				playback.src = "https://www.youtube.com/embed?v="+youtube_video(url)+"&list="+youtube_playlist(url);
+			}
+			else if(youtube_video(url)) {
+				playback.src = "https://www.youtube.com/embed/"+youtube_video(url);
+			}
+			else if(youtube_playlist(url)) {
+				playback.src = "https://www.youtube.com/embed?list="+youtube_playlist(url);
+			}
+		}
+	}
+	)
+
+	function youtube_video(url){
+		var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+		var match = url.match(regExp);
+		return (match&&match[7].length==11)? match[7] : false;
+	}
+
+	function youtube_playlist(url){
+		var regExp = /^.*((youtu.be\/)|list=([^#\&\?]+))/;
+		var match = url.match(regExp);
+		return (match&&match[3].length==34)? match[3] : false;
+	}
+</script>
 </html>
