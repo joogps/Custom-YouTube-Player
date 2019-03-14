@@ -4,44 +4,8 @@
 	<title>Approximating Pi - Livestream</title>
 	<link rel="icon" type="image/png" href="favicon.png">
 
-	<style>
-		body {
-			margin: 0;
-			background: lightgrey;
-		}
-
-		table {
-			position: absolute;
-			width: 100%;
-			height: 100%;
-
-			border-spacing: 15px;
-		}
-
-		td {
-			vertical-align: top;
-			padding: 0px;
-		}
-
-		iframe {
-			width: 100%;
-			height: 100%;
-		}
-
-		.input {
-			width: calc(100% - 19px);
-			height: 20px;
-			padding-left: 15px;
-		}
-
-		.input:focus {
-			outline: black solid 1px;
-		}
-
-		.song {
-			height: calc(100% - 26px);
-		}
-	</style>
+	<link href="stylesheet.css" rel="stylesheet" type="text/css">
+	<script src="script.js" type="text/javascript"></script>
 </head>
 <body>
 	<table>
@@ -60,36 +24,22 @@
 			</td>
 		</tr>
 	</table>
+	<script>
+		document.getElementsByClassName("input")[0].addEventListener("keyup", function(e) {
+			let url = this.value;
+			if (e.keyCode == 13 && url.length >= 7) {
+				let song = document.getElementsByClassName("song")[0];
+				if(youtube_video(url) && youtube_playlist(url)) {
+					song.src = "https://www.youtube.com/embed/"+youtube_video(url)+"&list="+youtube_playlist(url)+"?autoplay=1";
+				}
+				else if(youtube_video(url)) {
+					song.src = "https://www.youtube.com/embed/"+youtube_video(url)+"?autoplay=1";
+				}
+				else if(youtube_playlist(url)) {
+					song.src = "https://www.youtube.com/embed?list="+youtube_playlist(url)+"?autoplay=1";
+				}
+			}
+		});
+	</script>
 </body>
-
-<script>
-	document.getElementsByClassName("input")[0].addEventListener("keyup", function(e) {
-		let url = this.value;
-		let playback = document.getElementsByClassName("playback")[0];
-		if (e.keyCode == 13) {
-			if(youtube_video(url) && youtube_playlist(url)) {
-				playback.src = "https://www.youtube.com/embed?v="+youtube_video(url)+"&list="+youtube_playlist(url)+"?autoplay=1";
-			}
-			else if(youtube_video(url)) {
-				playback.src = "https://www.youtube.com/embed/"+youtube_video(url)+"?autoplay=1";
-			}
-			else if(youtube_playlist(url)) {
-				playback.src = "https://www.youtube.com/embed?list="+youtube_playlist(url)+"?autoplay=1";
-			}
-		}
-	}
-	)
-
-	function youtube_video(url){
-		var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
-		var match = url.match(regExp);
-		return (match&&match[7].length==11)? match[7] : false;
-	}
-
-	function youtube_playlist(url){
-		var regExp = /^.*((youtu.be\/)|list=([^#\&\?]+))/;
-		var match = url.match(regExp);
-		return (match&&match[3].length==34)? match[3] : false;
-	}
-</script>
 </html>

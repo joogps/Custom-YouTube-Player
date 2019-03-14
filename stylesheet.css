@@ -1,0 +1,48 @@
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	margin: 0;
+	background-image: linear-gradient(to bottom right, lightgrey, darkgrey);
+}
+
+table {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+
+	border-spacing: 15px;
+}
+
+td {
+	vertical-align: top;
+	padding: 0px;
+}
+
+iframe {
+	width: 100%;
+	height: 100%;
+}
+
+.chat {
+	border: none;
+}
+
+.input {
+	width: calc(100% - 15px);
+	height: 25px;
+
+	padding-left: 15px;
+
+	border: none;
+}
+
+.input:focus {
+	outline: none;
+}
+
+.song {
+	height: calc(100% - 27px);
+}
