@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Approximating Pi - Livestream</title>
-  	<link rel="icon" type="image/png" href="favicon.png">
+	<link rel="icon" type="image/png" href="favicon.png">
 
 	<style>
 		body {
@@ -10,56 +10,54 @@
 			background: lightgrey;
 		}
 
-		.video {
+		table {
 			position: absolute;
-			top: 0;
-			width: calc(50% - 2px);
-			height: calc(50% - 2px);
+			width: 100%;
+			height: 100%;
 		}
 
-		.chat {
-			position: absolute;
-			top: 1px;
-			left: calc(50% + 2px);
-			width: calc(50% - 2px);
-			height: 99%;
+		td {
+			vertical-align: top;
+			padding: 0px;
 		}
 
-		.song {
-			position: absolute;
-			top: calc(50% + 2px);
-			width: calc(50% - 2px);
-			height: calc(48% - 2px);
+		iframe {
+			width: 100%;
+			height: 100%;
 		}
 
 		.input {
-			width: calc(100% - 12px);
+			width: calc(100% - 19px);
 			height: 20px;
-
-			padding-left: 10px;
-
-			border: grey solid 1px;
+			padding-left: 15px;
 		}
 
 		.input:focus {
 			outline: black solid 1px;
 		}
 
-		.playback {
-			width: 100%;
-			height: calc(100% - 10px);
+		.song {
+			height: calc(100% - 26px);
 		}
 	</style>
 </head>
 <body>
-	<iframe class="video" src="https://www.youtube.com/embed/78ZthTGcdPw?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
-
-	<iframe class="chat" src="https://www.youtube.com/live_chat?v=78ZthTGcdPw&embed_domain=joogps.github.io"></iframe>
-
-	<div class="song">
-		<input class="input" placeholder="Playlist or video URL goes here"></input>
-		<iframe class="playback" src="https://www.youtube.com/embed/M5d7vygUPoQ?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
-	</div>
+	<table>
+		<tr>
+			<td>
+				<iframe class="video" src="https://www.youtube.com/embed/PIeKyP97EUc?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe> 
+			</td>
+			<td rowspan="2">
+				<iframe class="chat" src="https://www.youtube.com/live_chat?v=PIeKyP97EUc&embed_domain=joogps.github.io"></iframe>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input class="input" placeholder="Playlist or video URL goes here"></input>
+				<iframe class="song" src="https://www.youtube.com/embed/M5d7vygUPoQ?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
+			</td>
+		</tr>
+	</table>
 </body>
 
 <script>
