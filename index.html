@@ -30,7 +30,7 @@
 			if (e.keyCode == 13 && url.length >= 7) {
 				let song = document.getElementsByClassName("song")[0];
 				if(youtube_video(url) && youtube_playlist(url)) {
-					song.src = "https://www.youtube.com/embed?v="+youtube_video(url)+"&list="youtube_playlist(url);
+					song.src = "https://www.youtube.com/embed?v="+youtube_video(url)+"&list="+youtube_playlist(url);
 				}
 				else if(youtube_video(url)) {
 					song.src = "https://www.youtube.com/embed/"+youtube_video(url);
