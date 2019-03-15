@@ -30,14 +30,14 @@
 			if (e.keyCode == 13 && url.length >= 7) {
 				let song = document.getElementsByClassName("song")[0];
 				if(youtube_video(url) && youtube_playlist(url)) {
-65	+  				playback.src = "https://www.youtube.com/embed?v="+youtube_video(url)+"&list="+youtube_playlist(url);
-66	+  			}
-67	+  			else if(youtube_video(url)) {
-68	+  				playback.src = "https://www.youtube.com/embed/"+youtube_video(url);
-69	+  			}
-70	+  			else if(youtube_playlist(url)) {
-71	+  				playback.src = "https://www.youtube.com/embed?list="+youtube_playlist(url);
-72	+  			}
+					playback.src = "https://www.youtube.com/embed?v="+youtube_video(url)+"&list="youtube_playlist(url);
+				}
+				else if(youtube_video(url)) {
+					playback.src = "https://www.youtube.com/embed/"+youtube_video(url);
+				}
+				else if(youtube_playlist(url)) {
+					playback.src = "https://www.youtube.com/embed?list="+youtube_playlist(url);
+				}
 			}
 		});
 	</script>
