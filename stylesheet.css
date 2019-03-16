@@ -13,6 +13,8 @@ table {
 	width: 100%;
 	height: 100%;
 
+	table-layout: fixed;
+
 	border-spacing: 15px;
 }
 
@@ -26,23 +28,70 @@ iframe {
 	height: 100%;
 }
 
-.chat {
+#chat {
 	border: none;
 }
 
-.input {
-	width: calc(100% - 15px);
+.controller {
+	width: 100%;
 	height: 25px;
+}
 
+.url {
+	width: calc(100% - 15px);
+	height: 100%;
+
+	padding: 0;
 	padding-left: 15px;
 
+	font-size: 15px;
+
 	border: none;
+	border-radius: 5px 0 0 0;
+
+    float: left;
 }
 
-.input:focus {
+#first-controller > .url {
+	width: calc(80% - 15px);
+}
+
+#edit {
+	width: calc(19%);
+	height: 100%;
+	float: right;
+}
+
+#edit > button {
+	width: calc(50% - 2px);
+	height: 100%;
+
+	background: white;
+
+	font-size: 20px;
+	color: grey;
+
+	border: none;
+
+	background: white;
+
+	transition: background 0.25s;
+	background: white;
+}
+
+#add {
+	border-radius: 0 5px 0 0;
+}
+
+.edit:hover {
+	transition: background 0.25s;
+	background: #F0F0F0;
+}
+
+.url:focus, #edit > button:focus {
 	outline: none;
 }
 
-.song {
-	height: calc(100% - 27px);
+.playback {
+	height: calc(100% - 15px);
 }
