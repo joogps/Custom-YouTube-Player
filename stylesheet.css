@@ -28,7 +28,7 @@ iframe {
 	height: 100%;
 }
 
-#chat {
+.chat {
 	border: none;
 }
 
@@ -47,22 +47,23 @@ iframe {
 	font-size: 15px;
 
 	border: none;
-	border-radius: 5px 0 0 0;
+	border-radius: 5px 5px 0 0;
 
-    float: left;
+	float: left;
 }
 
-#first-controller > .url {
+.controller.can-edit > .url {
 	width: calc(80% - 15px);
+	border-radius: 5px 0 0 0;
 }
 
-#edit {
+.edit {
 	width: calc(19%);
 	height: 100%;
 	float: right;
 }
 
-#edit > button {
+.edit > button {
 	width: calc(50% - 2px);
 	height: 100%;
 
@@ -79,19 +80,52 @@ iframe {
 	background: white;
 }
 
-#add {
+.add {
 	border-radius: 0 5px 0 0;
+	float: right;
 }
 
-.edit:hover {
+.edit > button:hover {
 	transition: background 0.25s;
 	background: #F0F0F0;
 }
 
-.url:focus, #edit > button:focus {
+.url:focus, .edit > button:focus {
 	outline: none;
 }
 
 .playback {
-	height: calc(100% - 15px);
+	height: calc(100% - 30px);
+	border-radius: 0 0 5px 5px;
+}
+
+.no-playback {
+	background-color: rgba(100, 100, 100, 0.1);
+
+	border-radius: 0 0 5px 5px;
+
+	width: calc(100%);
+	height: calc(100% - 30px);
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.no-playback > span {
+	width: 800px;
+
+	font-family: monospace;
+	font-size: 4em;
+
+	color: white;
+
+	text-align: center;
+}
+
+@media only screen and (max-width: 800px) {
+	.no-playback > span {
+		width: 100%;
+	}
 }

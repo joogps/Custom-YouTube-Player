@@ -1,86 +1,119 @@
 $(function() {
-	function listenToKeys() {
+	function listenToURL() {
 		$(".url").on("keyup", function(e) {
-			let url = $(this).val();
-
-			if (e.keyCode == 13 && url.length >= 7) {
-				let playback = $(this).parent().parent().find(".playback");
-
-				let isNew;
-				if(!playback.length) {
-					playback = $("<iframe>").attr({
-						class: "playback",
-						frameborder: "0",
-						allow: "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-					});
-					$(this).parent().parent().find(".no-playback").remove();
-					$(this).parent().parent().append(playback);
-
-					isNew == true
-				}
-
-				let video = youtube_video(url);
-				let playlist = youtube_playlist(url);
-
-				let currentVideo = youtube_video(playback.attr("src") || "") || (playback.attr("src") || "").substr(-7);
-				let currentPlaylist = youtube_playlist(playback.attr("src") || "");
-
-
-				if(isNew || video != currentVideo || playlist != currentPlaylist) {
-					if(video && playlist) {
-						playback.attr("src", "https://www.youtube.com/embed?v="+video+"&list="+playlist);
-					}
-					else if(video) {
-						playback.attr("src", "https://www.youtube.com/embed/"+video);
-					}
-					else if(playlist) {
-						playback.attr("src", "https://www.youtube.com/embed?list="+playlist);
-					}
-
-					if($(this).parent().attr("id") == "first") {
-						$.get("https://www.youtube.com/live_chat?v="+video+"&list="+playlist+"&embed_domain=joogps.github.io").done(function() {
-							if($("#first-row").find("#chat").length)
-								$("#first-row").find("#chat").attr("src", "https://www.youtube.com/live_chat?v="+video+"&embed_domain=joogps.github.io");
-							else
-								$("#first-row").append($("<td>").addId("chat").attr("rowspan", $(".frame").length));
-						})
-					}
-				}
-			}
+			if (e.keyCode == 13)
+				playback($(this));
 		});
 	};
 
-	listenToKeys();
+	function listenToEdit() {
+		$(".edit > button").click(function() {
+			edit($(this))
+		});
+	}
 
-	$("#edit > button").click(function() {
-		let url = $(this).parent().parent().find(".url");
-		let playback = $(this).parent().parent().parent().find(".playback");
+	function playback(url) {
+		if (url.val().length >= 7) {
+			let playback = url.parent().parent().find(".playback");
 
-		let video = youtube_video(url.val());
-		let playlist = youtube_playlist(url.val());
+			let isNew;
+			if(!playback.length) {
+				playback = $("<iframe>").attr({
+					class: "playback",
+					frameborder: "0",
+					allow: "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+				});
+				url.parent().parent().find(".no-playback").remove();
+				url.parent().parent().append(playback);
 
-		let currentVideo = youtube_video(playback.attr("src") || "") || (playback.attr("src") || "").substr(-7);
-		let currentPlaylist = youtube_playlist(playback.attr("src") || "");
+				isNew == true;
+			}
+
+			let video = youtube_video(url.val());
+			let playlist = youtube_playlist(url.val());
+
+			let currentVideo = youtube_video(playback.attr("src") || "") || (playback.attr("src") || "").substr(-7);
+			let currentPlaylist = youtube_playlist(playback.attr("src") || "");
 
 
-		if(video != currentVideo || playlist != currentPlaylist) {
-			let event = jQuery.Event("keyup");
-			event.which = event.keyCode = 13
-			url.trigger(event)
+			if(isNew || video != currentVideo || playlist != currentPlaylist) {
+				if(video && playlist) {
+					playback.attr("src", "https://www.youtube.com/embed?v="+video+"&list="+playlist+"&origin=joogps.github.io");
+				}
+				else if(video) {
+					playback.attr("src", "https://www.youtube.com/embed/"+video+"&origin=joogps.github.io");
+				}
+				else if(playlist) {
+					playback.attr("src", "https://www.youtube.com/embed?list="+playlist+"&origin=joogps.github.io");
+				}
+
+				if(url.parent() == $(".frame").first()) {
+					$.get("https://www.youtube.com/live_chat?v="+video+"&list="+playlist+"&embed_domain=joogps.github.io").done(function() {
+						if($("tr").first().find(".chat").length)
+							$("tr").first().find(".chat").attr("src", "https://www.youtube.com/live_chat?v="+video+"&embed_domain=joogps.github.io");
+						else
+							$("tr").first().append($("<td>").addClass("chat").attr("rowspan", $(".frame").length));
+					})
+				}
+			}
 		}
+	}
 
-		if(playback.attr("src")) {
-			let playback = $("<div>").addClass("no-playback");
-			let url = $("<input>").addClass("url").attr("placeholder", "Video URL goes here");
-			let controller = $("<div>").addClass("controller").append(url);
-			let tableData = $("<td>").addClass("frame").append(controller).append(playback);
-			let tableRow = $("<tr>").append(tableData);
+	function edit(button) {
+		let url = button.closest(".controller").find(".url");
+			let playback = url.closest(".frame").find(".playback");
 
-			$("table").append(tableRow);
+			let video = youtube_video(url.val());
+			let playlist = youtube_playlist(url.val());
 
-			listenToKeys();
-		}
-	});
+			let currentVideo = youtube_video(playback.attr("src") || "") || (playback.attr("src") || "").substr(-7);
+			let currentPlaylist = youtube_playlist(playback.attr("src") || "");
+
+			if(video != currentVideo || playlist != currentPlaylist)
+				playback(url)
+			else {
+				if(button.hasClass("add")) {
+					if(playback.attr("src")) {
+						let playback = $("<div>").addClass("no-playback");
+						let url = $("<input>").addClass("url").attr("placeholder", "Video URL goes here");
+						let remove = $("<button>").addClass("remove").html("-");
+						let add = $("<button>").addClass("add").html("+");
+						let edit = $("<div>").addClass("edit").append(remove).append(add);
+						let controller = $("<div>").addClass("controller can-edit").append(url).append(edit);
+						let tableData = $("<td>").addClass("frame").append(controller).append(playback);
+						let tableRow = $("<tr>").append(tableData);
+
+						button.closest(".controller").removeClass("can-edit");
+						button.parent().remove();
+
+						$("table").append(tableRow);
+					}
+					else
+						url.focus();
+
+					listenToURL();
+					listenToEdit();
+				}
+				else if(button.hasClass("remove")) {
+					if($(".frame").length > 1) {
+						let remove = $("<button>").addClass("remove").html("-");
+						let add = $("<button>").addClass("add").html("+");
+						let edit = $("<div>").addClass("edit").append(remove).append(add);
+
+						button.closest("tr").prev().find("td").find(".controller").addClass("can-edit").append(edit);
+						button.closest("tr").remove();
+					}
+					else 
+						url.focus();
+
+					listenToURL();
+					listenToEdit();
+				}
+			}
+	}
+
+	listenToURL();
+	listenToEdit();
 });
 
 function youtube_video(url) {
