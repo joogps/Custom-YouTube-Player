@@ -38,13 +38,13 @@ $(function() {
 
 			if(isNew || video != currentVideo || playlist != currentPlaylist) {
 				if(video && playlist) {
-					playback.attr("src", "https://www.youtube.com/embed?v="+video+"&list="+playlist+"&origin=joogps.github.io");
+					playback.attr("src", "https://www.youtube.com/embed?v="+video+"&list="+playlist+"&origin=https://joogps.github.io");
 				}
 				else if(video) {
-					playback.attr("src", "https://www.youtube.com/embed/"+video+"&origin=joogps.github.io");
+					playback.attr("src", "https://www.youtube.com/embed/"+video+"&origin=https://joogps.github.io");
 				}
 				else if(playlist) {
-					playback.attr("src", "https://www.youtube.com/embed?list="+playlist+"&origin=joogps.github.io");
+					playback.attr("src", "https://www.youtube.com/embed?list="+playlist+"&origin=https://joogps.github.io");
 				}
 
 				if(url.parent() == $(".frame").first()) {
