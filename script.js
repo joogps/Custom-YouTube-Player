@@ -37,7 +37,18 @@ $(function() {
 
 
 			if(isNew || video != currentVideo || playlist != currentPlaylist) {
+				let params = "autoplay=1&color=white&modestbranding=1&rel=0&fs=0&origin=https://joogps.github.io/";
+
 				if(video && playlist) {
+<<<<<<< HEAD
+					playback.attr("src", "https://www.youtube.com/embed?v="+video+"&list="+playlist+"&"+params);
+				}
+				else if(video) {
+					playback.attr("src", "https://www.youtube.com/embed/"+video+"?"+params);
+				}
+				else if(playlist) {
+					playback.attr("src", "https://www.youtube.com/embed?list="+playlist+"&"+params);
+=======
 					playback.attr("src", "https://www.youtube.com/embed?v="+video+"&list="+playlist+"&enablejsapi=1&origin=https://joogps.github.io/Custom-YouTube-Player/");
 				}
 				else if(video) {
@@ -45,6 +56,7 @@ $(function() {
 				}
 				else if(playlist) {
 					playback.attr("src", "https://www.youtube.com/embed?list="+playlist+"& enablejsapi=1&origin=https://joogps.github.io/Custom-YouTube-Player/");
+>>>>>>> e62a0289640cb0fd7d418fb0dd94a935593dafcb
 				}
 
 				if(url.parent() == $(".frame").first()) {
