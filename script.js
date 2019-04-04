@@ -46,7 +46,7 @@ $(function() {
 				else if(playlist)
 					playback.attr("src", "https://www.youtube.com/embed?list="+playlist+"&"+params);
 
-				$.get("https://www.youtube.com/live_chat?v="+video+"&embed_domain=joogps.github.io").done(function() {
+				url_exists("https://www.youtube.com/live_chat?v="+video+"&embed_domain=joogps.github.io", function(){
 					if($("tr").first().find(".chat").length)
 						$("tr").first().find(".chat").attr("src", "https://www.youtube.com/live_chat?v="+video+"&embed_domain=joogps.github.io");
 					else
@@ -127,4 +127,16 @@ function youtube_playlist(url) {
 	var regExp = /^.*((youtu.be\/)|list=([^#\&\?]+))/;
 	var match = url.match(regExp);
 	return (match && match[3].length==34)? match[3] : false;
+}
+
+function url_exists(url, successCallback) {
+  $.ajax({
+    url: url,
+    dataType: "jsonp",
+    statusCode: {
+      200: function(response) {
+        successCallback();
+      }
+    }
+  });
 }
