@@ -8,7 +8,7 @@ $(function() {
 
 	function listenToEdit() {
 		$(".edit > button").click(function() {
-			edit($(this))
+			edit($(this));
 		});
 	}
 
@@ -111,6 +111,10 @@ $(function() {
 
 	listenToURL();
 	listenToEdit();
+
+	$(".no-playback > img").click(function() {
+		$(".url").first().focus();
+	})
 });
 
 function youtube_video(url) {

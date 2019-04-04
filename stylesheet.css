@@ -86,7 +86,7 @@ iframe {
 }
 
 .edit > button:hover {
-	transition: background 0.25s;
+	transition: background 0.1s;
 	background: #F0F0F0;
 }
 
@@ -113,15 +113,15 @@ iframe {
 	align-items: center;
 }
 
-.no-playback > span {
-	width: 800px;
+.no-playback > img {
+	width: 256px;
+	transition: filter 0.5s;
 
-	font-family: monospace;
-	font-size: 4em;
+	cursor: pointer;
+}
 
-	color: white;
-
-	text-align: center;
+.no-playback > img:hover {
+	filter: brightness(85%);
 }
 
 @media only screen and (max-width: 800px) {
