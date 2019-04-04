@@ -129,14 +129,15 @@ function youtube_playlist(url) {
 	return (match && match[3].length==34)? match[3] : false;
 }
 
-function url_exists(url, successCallback) {
-  $.ajax({
-    url: url,
-    dataType: "jsonp",
-    statusCode: {
-      200: function(response) {
-        successCallback();
-      }
-    }
-  });
+function url_exists(url, callback){
+	$.ajax({
+		type: 'HEAD',
+		url: url,
+		success: function(){
+			callback(true);
+		},
+		error: function() {
+			callback(false);
+		}
+	});
 }
