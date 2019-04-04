@@ -46,7 +46,7 @@ $(function() {
 				else if(playlist)
 					playback.attr("src", "https://www.youtube.com/embed?list="+playlist+"&"+params);
 
-				$.get("https://www.youtube.com/live_chat?v="+video+"&list="+playlist+"&embed_domain=joogps.github.io").done(function() {
+				$.get("https://www.youtube.com/live_chat?v="+video+"&embed_domain=joogps.github.io").done(function() {
 					if($("tr").first().find(".chat").length)
 						$("tr").first().find(".chat").attr("src", "https://www.youtube.com/live_chat?v="+video+"&embed_domain=joogps.github.io");
 					else
