@@ -50,7 +50,7 @@ $(function() {
 					if($("tr").first().find(".chat").length)
 						$("tr").first().find(".chat").attr("src", "https://www.youtube.com/live_chat?v="+video+"&embed_domain=joogps.github.io");
 					else
-						$("tr").first().append($("<td>").addClass("chat").attr("rowspan", $(".frame").length));
+						$("tr").first().append($("<td>").attr("rowspan", $(".frame").length).append($("<iframe>").addClass("chat").attr("src", "https://www.youtube.com/live_chat?v="+video+"&embed_domain=joogps.github.io")));
 				})
 			}
 		}
